@@ -5,7 +5,7 @@ namespace GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 public abstract class TelaBase<T> where T : EntidadeBase<T>
 {
     protected string nomeEntidade;
-    private IRepositorio<T> repositorio;
+    protected IRepositorio<T> repositorio;
 
     protected TelaBase(string nomeEntidade, IRepositorio<T> repositorio)
     {
@@ -143,4 +143,8 @@ public abstract class TelaBase<T> where T : EntidadeBase<T>
     public abstract void VisualizarRegistros(bool exibirTitulo);
 
     public abstract T ObterDados();
+
+    protected abstract void ExibirCabecalhoTabela();
+
+    protected abstract void ExibirLinhaTabela(T registro);
 }
