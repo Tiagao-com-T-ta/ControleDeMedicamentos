@@ -60,14 +60,14 @@ namespace ControleDeMedicamentos.ConsoleApp
         {
             ConsoleColor corStatus = medicamento.Quantidade < 20 ? ConsoleColor.Red : ConsoleColor.Green;
 
-            Console.Write("{0,-5} | {1,-30} | {2,-20} | ",
+            Console.Write("{0,-5} | {1,-30} | {2,-10} | ",
                 medicamento.Id, medicamento.Nome, medicamento.Quantidade);
 
             Console.ForegroundColor = corStatus;
             Console.Write(medicamento.ObterStatusEstoque().PadRight(15));
             Console.ResetColor();
 
-            Console.WriteLine("| {0,-15}", medicamento.Fornecedor.Nome);
+            Console.WriteLine("| {0,-20}", medicamento.Fornecedor.Nome);
         }
 
         public override void VisualizarRegistros(bool exibirTitulo)

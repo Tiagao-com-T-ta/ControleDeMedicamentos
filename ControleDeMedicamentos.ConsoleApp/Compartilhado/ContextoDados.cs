@@ -9,6 +9,7 @@ public class ContextoDados
     //public List<Entidade> Entidade { get; set; }
     public List<Fornecedor> Fornecedores { get; set; }
     public List<Medicamento> Medicamentos { get; set; }
+    public List<Prescricao> Prescricoes { get; set; }
 
     private string pastaArmazenamento = "C:\\temp";
     private string arquivoArmazenamento = "dados.json";
@@ -18,6 +19,7 @@ public class ContextoDados
         //nomeEntidade = new List<Entidade>();
         Fornecedores = new List<Fornecedor>();
         Medicamentos = new List<Medicamento>();
+        Prescricoes = new List<Prescricao>();
     }
 
     public ContextoDados(bool carregarDados) : this()
@@ -62,5 +64,6 @@ public class ContextoDados
         //this.Entidade = contextoArmazenado.Entidade;
         this.Fornecedores = contextoArmazenado.Fornecedores;
         this.Medicamentos = contextoArmazenado.Medicamentos;
+        this.Prescricoes = contextoArmazenado.Prescricoes;
     }
 }
