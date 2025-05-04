@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ControleDeMedicamentos.ConsoleApp
+namespace ControleDeMedicamentos.ConsoleApp.ModuloFornecedor
 {
     class TelaFornecedor : TelaBase<Fornecedor>, ITelaCrud
     {

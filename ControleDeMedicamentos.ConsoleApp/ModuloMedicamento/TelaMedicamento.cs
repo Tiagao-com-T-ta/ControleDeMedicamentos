@@ -1,4 +1,5 @@
 ﻿using ControleDeMedicamentos.ConsoleApp.ControleDeMedicamentos.ConsoleApp;
+using ControleDeMedicamentos.ConsoleApp.ModuloFornecedor;
 using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.Util;
 using System;
@@ -7,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ControleDeMedicamentos.ConsoleApp
+namespace ControleDeMedicamentos.ConsoleApp.ModuloMedicamento
 {
     public class TelaMedicamento : TelaBase<Medicamento>, ITelaCrud
     {

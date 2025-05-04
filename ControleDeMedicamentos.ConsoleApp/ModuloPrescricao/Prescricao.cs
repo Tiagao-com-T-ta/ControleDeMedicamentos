@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace ControleDeMedicamentos.ConsoleApp
+namespace ControleDeMedicamentos.ConsoleApp.ModuloPrescricao
 {
     public class Prescricao : EntidadeBase<Prescricao>
     {

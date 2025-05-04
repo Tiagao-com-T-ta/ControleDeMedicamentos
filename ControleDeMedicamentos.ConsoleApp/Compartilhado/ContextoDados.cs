@@ -1,6 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 using System.Text.Json;
-using ControleDeMedicamentos.ConsoleApp;
+using ControleDeMedicamentos.ConsoleApp.ModuloFornecedor;
+using ControleDeMedicamentos.ConsoleApp.ModuloMedicamento;
+using ControleDeMedicamentos.ConsoleApp.ModuloPrescricao;
 
 namespace GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 

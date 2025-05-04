@@ -1,5 +1,7 @@
-﻿using ControleDeMedicamentos.ConsoleApp;
-using ControleDeMedicamentos.ConsoleApp.ControleDeMedicamentos.ConsoleApp;
+﻿using ControleDeMedicamentos.ConsoleApp.ControleDeMedicamentos.ConsoleApp;
+using ControleDeMedicamentos.ConsoleApp.ModuloFornecedor;
+using ControleDeMedicamentos.ConsoleApp.ModuloMedicamento;
+using ControleDeMedicamentos.ConsoleApp.ModuloPrescricao;
 using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 
 namespace GestaoDeEquipamentos.ConsoleApp.Util;
