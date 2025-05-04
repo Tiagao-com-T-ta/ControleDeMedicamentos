@@ -48,8 +48,28 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloMedicamento
 
             Fornecedor fornecedorSelecionado = repositorioFornecedor.SelecionarRegistroPorId(idFornecedor);
 
-            return new Medicamento(nome, descricao, quantidade, fornecedorSelecionado);
+            List<string> sintomasTratados = new List<string>();
+            while (true)
+            {
+                Console.Write("Digite um sintoma tratado pelo medicamento (ou 'fim' para terminar): ");
+                string sintoma = Console.ReadLine();
+
+                if (sintoma.ToLower() == "fim")
+                    break;
+
+                if (!string.IsNullOrWhiteSpace(sintoma))
+                {
+                    sintomasTratados.Add(sintoma.Trim());
+                }
+                else
+                {
+                    Console.WriteLine("Sintoma não pode ser vazio.");
+                }
+            }
+
+            return new Medicamento(nome, descricao, quantidade, fornecedorSelecionado, sintomasTratados);
         }
+
 
         protected override void ExibirCabecalhoTabela()
         {

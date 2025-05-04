@@ -1,4 +1,5 @@
-﻿using ControleDeMedicamentos.ConsoleApp.ControleDeMedicamentos.ConsoleApp;
+﻿using ControleDeMedicamentos.ConsoleApp;
+using ControleDeMedicamentos.ConsoleApp.ControleDeMedicamentos.ConsoleApp;
 using ControleDeMedicamentos.ConsoleApp.ModuloFornecedor;
 using ControleDeMedicamentos.ConsoleApp.ModuloMedicamento;
 using ControleDeMedicamentos.ConsoleApp.ModuloPrescricao;
@@ -13,6 +14,7 @@ public class TelaPrincipal
     private TelaFornecedor telaFornecedor;
     private TelaMedicamento telaMedicamento;
     private TelaPrescricao telaPrescricao;
+    private readonly TelaRecomendacao _telaRecomendacao;
 
 
     public TelaPrincipal()
@@ -26,6 +28,10 @@ public class TelaPrincipal
         telaFornecedor = new TelaFornecedor(repositorioFornecedor);
         telaMedicamento = new TelaMedicamento(repositorioMedicamento, repositorioFornecedor);
         telaPrescricao = new TelaPrescricao(repositorioPrescricao, repositorioMedicamento);
+
+        RecomendacaoMedicamentoService recomendacaoService = new RecomendacaoMedicamentoService(contexto);
+
+        _telaRecomendacao = new TelaRecomendacao(recomendacaoService);
     }
 
     public void ApresentarMenuPrincipal()
@@ -41,6 +47,7 @@ public class TelaPrincipal
         Console.WriteLine("1 - Controle de Fornecedor");
         Console.WriteLine("2 - Controle de Medicamentos");
         Console.WriteLine("3 - Prescrições Médicas");
+        Console.WriteLine("4 - Sistema de Recomendação");
 
         Console.WriteLine("S - Sair");
 
@@ -58,7 +65,49 @@ public class TelaPrincipal
             return telaMedicamento;
         else if (opcaoPrincipal == '3')
             return telaPrescricao;
+        else if (opcaoPrincipal == '4')
+            ExecutarMenuRecomendacao();
+            return null;
 
-        return null;
 }
+    private void ExecutarMenuRecomendacao()
+    {
+        char opcao;
+        do
+        {
+            Console.Clear();
+            Console.WriteLine("=== SISTEMA DE RECOMENDAÇÃO ===");
+            Console.WriteLine("1 - Treinar modelo com medicamentos atuais");
+            Console.WriteLine("2 - Recomendar medicamento para sintomas");
+            Console.WriteLine("3 - Verificar disponibilidade de medicamento");
+            Console.WriteLine("4 - Voltar ao menu principal");
+            Console.Write("\nEscolha uma opção: ");
+
+            opcao = Console.ReadKey().KeyChar;
+            Console.WriteLine();
+
+            switch (opcao)
+            {
+                case '1':
+                    _telaRecomendacao.Treinar(); 
+                    break;
+                case '2':
+                    _telaRecomendacao.Recomendacao(); 
+                    break;
+                case '3':
+                    Console.WriteLine("Funcionalidade de Verificar Disponibilidade ainda não implementada.");
+                    break;
+                default:
+                    Console.WriteLine("Opção inválida.");
+                    break;
+            }
+
+            if (opcao != '4')
+            {
+                Console.WriteLine("\nPressione qualquer tecla para continuar...");
+                Console.ReadKey();
+            }
+
+        } while (opcao != '4');
+    }
 }

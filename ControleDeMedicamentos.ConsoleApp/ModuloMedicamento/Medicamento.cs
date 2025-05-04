@@ -14,13 +14,15 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloMedicamento
         public string Descricao { get; set; }
         public int Quantidade { get; set; }
         public Fornecedor Fornecedor { get; set; }
+        public List<string> SintomasTratados { get; set; }
 
-        public Medicamento(string nome, string descricao, int quantidade, Fornecedor fornecedor)
+        public Medicamento(string nome, string descricao, int quantidade, Fornecedor fornecedor, List<string> sintomasTratados)
         {
             Nome = nome;
             Descricao = descricao;
             Quantidade = quantidade;
             Fornecedor = fornecedor;
+            SintomasTratados = sintomasTratados;
         }
 
         public override void AtualizarRegistro(Medicamento registroEditado)

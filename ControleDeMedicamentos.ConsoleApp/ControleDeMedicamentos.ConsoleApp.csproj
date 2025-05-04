@@ -6,5 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.ML" Version="3.0.0" />
+		<!-- Versão pode variar -->
+		<PackageReference Include="Microsoft.ML.FastTree" Version="3.0.0" />
+	</ItemGroup>
 
 </Project>
