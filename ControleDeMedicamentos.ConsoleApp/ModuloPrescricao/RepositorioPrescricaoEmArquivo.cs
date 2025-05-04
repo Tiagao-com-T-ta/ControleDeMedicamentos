@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ControleDeMedicamentos.ConsoleApp
+namespace ControleDeMedicamentos.ConsoleApp.ModuloPrescricao
 {
     public class RepositorioPrescricaoEmArquivo : RepositorioBaseEmArquivo<Prescricao>, IRepositorioPrescricao
     {

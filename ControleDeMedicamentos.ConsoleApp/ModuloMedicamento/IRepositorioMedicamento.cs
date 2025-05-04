@@ -1,4 +1,5 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+﻿using ControleDeMedicamentos.ConsoleApp.ModuloMedicamento;
+using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using System;
 using System.Collections.Generic;
 using System.Linq;
