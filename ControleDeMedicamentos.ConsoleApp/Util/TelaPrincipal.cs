@@ -5,6 +5,7 @@ using ControleDeMedicamentos.ConsoleApp.ModuloPrescricao;
 using ControleDeMedicamentos.ConsoleApp.ModuloFuncionario;
 using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using System.Runtime.CompilerServices;
+using ControleDeMedicamentos.ConsoleApp.ModuloPaciente;
 
 namespace GestaoDeEquipamentos.ConsoleApp.Util;
 
@@ -16,6 +17,7 @@ public class TelaPrincipal
     private TelaMedicamento telaMedicamento;
     private TelaPrescricao telaPrescricao;
     private TelaFuncionario telaFuncionario;
+    private TelaPaciente telaPaciente;
 
 
     public TelaPrincipal()
@@ -25,10 +27,12 @@ public class TelaPrincipal
         IRepositorioFornecedor repositorioFornecedor = new RepositorioFornecedorEmArquivo(contexto);
         IRepositorioMedicamento repositorioMedicamento = new RepositorioMedicamentoEmArquivo(contexto);
         IRepositorioPrescricao repositorioPrescricao = new RepositorioPrescricaoEmArquivo(contexto);
+        IRepositorioPaciente repositorioPaciente = new RepositorioPacienteEmArquivo(contexto);
 
         telaFornecedor = new TelaFornecedor(repositorioFornecedor);
         telaMedicamento = new TelaMedicamento(repositorioMedicamento, repositorioFornecedor);
         telaPrescricao = new TelaPrescricao(repositorioPrescricao, repositorioMedicamento);
+        telaPaciente = new TelaPaciente(repositorioPaciente, repositorioPaciente);
 
         IRepositorioFuncionario repositorioFuncionario = new RepositorioFuncionarioEmArquivo(contexto);
         telaFuncionario = new TelaFuncionario(repositorioFuncionario);
@@ -48,13 +52,14 @@ public class TelaPrincipal
         Console.WriteLine("1 - Controle de Fornecedor");
         Console.WriteLine("2 - Controle de Medicamentos");
         Console.WriteLine("3 - Prescrições Médicas");
-        Console.WriteLine("4 - Controle de funcionários");
+        Console.WriteLine("4 - Controle de Funcionários");
+        Console.WriteLine("5 - Controle de Pacientes");
         Console.WriteLine("S - Sair");
 
         Console.WriteLine();
 
         Console.Write("Escolha uma das opções: ");
-        opcaoPrincipal = Console.ReadLine()[0];
+        opcaoPrincipal = Console.ReadLine()![0];
     }
 
         public ITelaCrud ObterTela()
@@ -67,7 +72,10 @@ public class TelaPrincipal
             return telaPrescricao;
         else if (opcaoPrincipal == '4')
             return telaFuncionario;
+        else if (opcaoPrincipal == '5')
+            return telaPaciente;
 
-      return null;
+        return null;
 }
 }
+
