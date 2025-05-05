@@ -2,7 +2,6 @@
 
 namespace ControleDeMedicamentos.ConsoleApp.Data
 {
-  
     public class SintomaMedicamento
     {
         [LoadColumn(0)]
@@ -12,7 +11,6 @@ namespace ControleDeMedicamentos.ConsoleApp.Data
         public string MedicamentoRecomendado { get; set; }
     }
 
-  
     public class SintomaPredicao
     {
         [ColumnName("PredictedLabel")]

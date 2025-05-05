@@ -88,7 +88,14 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloMedicamento
             Console.Write(medicamento.ObterStatusEstoque().PadRight(15));
             Console.ResetColor();
 
-            Console.WriteLine("| {0,-20}", medicamento.Fornecedor.Nome);
+            if (medicamento.Fornecedor != null)
+            {
+                Console.WriteLine("| {0,-20}", medicamento.Fornecedor.Nome);
+            }
+            else
+            {
+                Console.WriteLine("| Fornecedor não encontrado");
+            }
         }
 
         public override void VisualizarRegistros(bool exibirTitulo)

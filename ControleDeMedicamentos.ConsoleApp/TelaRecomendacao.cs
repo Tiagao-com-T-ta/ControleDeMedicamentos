@@ -1,63 +1,116 @@
-﻿using System;
+﻿using ControleDeMedicamentos.ConsoleApp.ModuloMedicamento;
+using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
-public class TelaRecomendacao
+namespace ControleDeMedicamentos.ConsoleApp.ModuloRecomendacao
 {
-    private readonly RecomendacaoMedicamentoService _servicoRecomendacao;
-
-    public TelaRecomendacao(RecomendacaoMedicamentoService servicoRecomendacao)
+    public class TelaRecomendacao
     {
-        _servicoRecomendacao = servicoRecomendacao;
-    }
+        private readonly ContextoDados _contexto;
+        private readonly RecomendacaoMedicamentoService _servicoRecomendacao;
 
-    public void Recomendacao()
-    {
-        Console.WriteLine("\n--- Recomendação de Medicamento ---");
-
-        List<string> sintomasPaciente = new List<string>();
-
-        while (true)
+        public TelaRecomendacao(ContextoDados contexto)
         {
-            Console.Write("Digite um sintoma (ou 'fim' para terminar): ");
-            string sintoma = Console.ReadLine();
-
-            if (sintoma.ToLower() == "fim")
-                break;
-
-            if (!string.IsNullOrWhiteSpace(sintoma))
-                sintomasPaciente.Add(sintoma.Trim());
+            _contexto = contexto;
+            _servicoRecomendacao = new RecomendacaoMedicamentoService(contexto);
         }
 
-        if (sintomasPaciente.Count == 0)
+        public void MostrarMenu()
         {
-            Console.WriteLine("Nenhum sintoma informado.");
-            return;
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("=== Recomendação de Medicamentos ===");
+                Console.WriteLine("1. Treinar Modelo");
+                Console.WriteLine("2. Recomendar Medicamento por Sintomas");
+                Console.WriteLine("s. Voltar");
+
+                Console.Write("\nEscolha uma opção: ");
+                string opcao = Console.ReadLine();
+
+                switch (opcao)
+                {
+                    case "1":
+                        TreinarModelo();
+                        break;
+                    case "2":
+                        RecomendarMedicamento();
+                        break;
+                    case "s":
+                    case "S":
+                        return;
+                    default:
+                        Console.WriteLine("Opção inválida.");
+                        Console.ReadKey();
+                        break;
+                }
+            }
         }
 
-        var recomendado = _servicoRecomendacao.RecomendarMedicamento(sintomasPaciente);
+        public void TreinarModelo()
+        {
+            try
+            {
+                _servicoRecomendacao.TreinarModelo();
+                Console.WriteLine("Modelo treinado com sucesso!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao treinar modelo: {ex.Message}");
+            }
 
-        if (recomendado != null)
-        {
-            Console.WriteLine($"\nMedicamento recomendado: {recomendado.Nome}");
+            Console.WriteLine("\nPressione qualquer tecla para continuar...");
+            Console.ReadKey();
         }
-        else
-        {
-            Console.WriteLine("\nNenhum medicamento encontrado com os sintomas informados.");
-        }
-    }
 
-    public void Treinar()
-    {
-        Console.WriteLine("\n--- Treinando modelo com medicamentos cadastrados ---");
+        public void RecomendarMedicamento()
+        {
+            try
+            {
+                Console.WriteLine("\nDigite os sintomas do paciente (um por vez).");
+                Console.WriteLine("Digite 'fim' para encerrar a entrada.");
 
-        try
-        {
-            _servicoRecomendacao.TreinarModelo();
-            Console.WriteLine("Treinamento concluído.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Erro durante o treinamento: {ex.Message}");
+                var sintomas = new List<string>();
+
+                while (true)
+                {
+                    Console.Write("Sintoma: ");
+                    string entrada = Console.ReadLine()?.Trim();
+
+                    if (string.Equals(entrada, "fim", StringComparison.OrdinalIgnoreCase))
+                        break;
+
+                    if (!string.IsNullOrWhiteSpace(entrada))
+                        sintomas.Add(entrada);
+                }
+
+                if (sintomas.Count == 0)
+                {
+                    Console.WriteLine("Nenhum sintoma informado.");
+                    Console.ReadKey();
+                    return;
+                }
+
+                Medicamento medicamento = _servicoRecomendacao.RecomendarMedicamento(sintomas);
+
+                if (medicamento != null)
+                {
+                    Console.WriteLine($"\nMedicamento recomendado: {medicamento.Nome}");
+                }
+                else
+                {
+                    Console.WriteLine("\nNenhum medicamento encontrado para os sintomas informados.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao recomendar medicamento: {ex.Message}");
+            }
+
+            Console.WriteLine("\nPressione qualquer tecla para continuar...");
+            Console.ReadKey();
         }
     }
 }

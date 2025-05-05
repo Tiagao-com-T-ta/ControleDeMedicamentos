@@ -3,6 +3,7 @@ using ControleDeMedicamentos.ConsoleApp.ControleDeMedicamentos.ConsoleApp;
 using ControleDeMedicamentos.ConsoleApp.ModuloFornecedor;
 using ControleDeMedicamentos.ConsoleApp.ModuloMedicamento;
 using ControleDeMedicamentos.ConsoleApp.ModuloPrescricao;
+using ControleDeMedicamentos.ConsoleApp.ModuloRecomendacao;
 using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 
 namespace GestaoDeEquipamentos.ConsoleApp.Util;
@@ -22,16 +23,14 @@ public class TelaPrincipal
         this.contexto = new ContextoDados(true);
 
         IRepositorioFornecedor repositorioFornecedor = new RepositorioFornecedorEmArquivo(contexto);
-        IRepositorioMedicamento repositorioMedicamento = new RepositorioMedicamentoEmArquivo(contexto);
+        IRepositorioMedicamento repositorioMedicamento = new RepositorioMedicamentoEmArquivo(contexto, repositorioFornecedor);
         IRepositorioPrescricao repositorioPrescricao = new RepositorioPrescricaoEmArquivo(contexto);
 
         telaFornecedor = new TelaFornecedor(repositorioFornecedor);
         telaMedicamento = new TelaMedicamento(repositorioMedicamento, repositorioFornecedor);
         telaPrescricao = new TelaPrescricao(repositorioPrescricao, repositorioMedicamento);
 
-        RecomendacaoMedicamentoService recomendacaoService = new RecomendacaoMedicamentoService(contexto);
-
-        _telaRecomendacao = new TelaRecomendacao(recomendacaoService);
+        _telaRecomendacao = new TelaRecomendacao(contexto);
     }
 
     public void ApresentarMenuPrincipal()
@@ -88,15 +87,15 @@ public class TelaPrincipal
 
             switch (opcao)
             {
-                case '1':
-                    _telaRecomendacao.Treinar(); 
+                case '1':  
+                    _telaRecomendacao.TreinarModelo();
                     break;
-                case '2':
-                    _telaRecomendacao.Recomendacao(); 
+                case '2':  
+                    _telaRecomendacao.RecomendarMedicamento();
                     break;
-                case '3':
-                    Console.WriteLine("Funcionalidade de Verificar Disponibilidade ainda não implementada.");
-                    break;
+                case 's': 
+                case 'S':  
+                    return;
                 default:
                     Console.WriteLine("Opção inválida.");
                     break;
