@@ -60,9 +60,6 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloRecomendacao
             {
                 Console.WriteLine($"Erro ao treinar modelo: {ex.Message}");
             }
-
-            Console.WriteLine("\nPressione qualquer tecla para continuar...");
-            Console.ReadKey();
         }
 
         public void RecomendarMedicamento()
@@ -108,9 +105,6 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloRecomendacao
             {
                 Console.WriteLine($"Erro ao recomendar medicamento: {ex.Message}");
             }
-
-            Console.WriteLine("\nPressione qualquer tecla para continuar...");
-            Console.ReadKey();
         }
     }
 }

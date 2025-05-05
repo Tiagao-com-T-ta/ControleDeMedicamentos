@@ -23,7 +23,7 @@ public class TelaPrincipal
         this.contexto = new ContextoDados(true);
 
         IRepositorioFornecedor repositorioFornecedor = new RepositorioFornecedorEmArquivo(contexto);
-        IRepositorioMedicamento repositorioMedicamento = new RepositorioMedicamentoEmArquivo(contexto, repositorioFornecedor);
+        IRepositorioMedicamento repositorioMedicamento = new RepositorioMedicamentoEmArquivo(contexto);
         IRepositorioPrescricao repositorioPrescricao = new RepositorioPrescricaoEmArquivo(contexto);
 
         telaFornecedor = new TelaFornecedor(repositorioFornecedor);
@@ -78,8 +78,7 @@ public class TelaPrincipal
             Console.WriteLine("=== SISTEMA DE RECOMENDAÇÃO ===");
             Console.WriteLine("1 - Treinar modelo com medicamentos atuais");
             Console.WriteLine("2 - Recomendar medicamento para sintomas");
-            Console.WriteLine("3 - Verificar disponibilidade de medicamento");
-            Console.WriteLine("4 - Voltar ao menu principal");
+            Console.WriteLine("3 - Voltar ao menu principal");
             Console.Write("\nEscolha uma opção: ");
 
             opcao = Console.ReadKey().KeyChar;
@@ -92,6 +91,9 @@ public class TelaPrincipal
                     break;
                 case '2':  
                     _telaRecomendacao.RecomendarMedicamento();
+                    break;
+                case '3':
+                    ApresentarMenuPrincipal();
                     break;
                 case 's': 
                 case 'S':  
