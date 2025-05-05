@@ -1,5 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 using System.Text.Json;
+using ControleDeMedicamentos.ConsoleApp.ModuloFornecedor;
+using ControleDeMedicamentos.ConsoleApp.ModuloMedicamento;
+using ControleDeMedicamentos.ConsoleApp.ModuloPrescricao;
 using ControleDeMedicamentos.ConsoleApp.ModuloFuncionario;
 
 namespace GestaoDeEquipamentos.ConsoleApp.Compartilhado;
@@ -7,6 +10,9 @@ namespace GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 public class ContextoDados
 {
     //public List<Entidade> Entidade { get; set; }
+    public List<Fornecedor> Fornecedores { get; set; }
+    public List<Medicamento> Medicamentos { get; set; }
+    public List<Prescricao> Prescricoes { get; set; }
     public List<Funcionario> Funcionarios { get; set; }
 
     private string pastaArmazenamento = "C:\\temp";
@@ -15,6 +21,9 @@ public class ContextoDados
     public ContextoDados()
     {
         //nomeEntidade = new List<Entidade>();
+        Fornecedores = new List<Fornecedor>();
+        Medicamentos = new List<Medicamento>();
+        Prescricoes = new List<Prescricao>();
 
         Funcionarios = new List<Funcionario>();
     }
@@ -59,6 +68,9 @@ public class ContextoDados
         if (contextoArmazenado == null) return;
 
         //this.Entidade = contextoArmazenado.Entidade;
+        this.Fornecedores = contextoArmazenado.Fornecedores;
+        this.Medicamentos = contextoArmazenado.Medicamentos;
+        this.Prescricoes = contextoArmazenado.Prescricoes;
 
         this.Funcionarios = contextoArmazenado.Funcionarios;
     }

@@ -145,5 +145,6 @@ public abstract class TelaBase<T> where T : EntidadeBase<T>
     public abstract T ObterDados();
 
     protected abstract void ExibirCabecalhoTabela();
+
     protected abstract void ExibirLinhaTabela(T registro);
 }
