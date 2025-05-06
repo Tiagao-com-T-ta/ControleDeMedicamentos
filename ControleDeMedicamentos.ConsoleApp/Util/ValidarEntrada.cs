@@ -9,7 +9,7 @@ namespace ControleDeMedicamentos.ConsoleApp.Util
 {
     public static class ValidadorEntrada
     {
-        public static string ValidarEntradaNaoVazia(string mensagem)
+        public static string ValidarEntrada(string mensagem)
         {
             string entrada;
             do
@@ -32,7 +32,7 @@ namespace ControleDeMedicamentos.ConsoleApp.Util
             string entrada;
             do
             {
-                entrada = ValidarEntradaNaoVazia(mensagem);
+                entrada = ValidarEntrada(mensagem);
 
                 if (!int.TryParse(entrada, out numero))
                 {
@@ -49,7 +49,7 @@ namespace ControleDeMedicamentos.ConsoleApp.Util
             string entrada;
             do
             {
-                entrada = ValidarEntradaNaoVazia(mensagem);
+                entrada = ValidarEntrada(mensagem);
 
                 if (!DateTime.TryParse(entrada, out data))
                 {
