@@ -97,5 +97,23 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloMedicamento
             Console.WriteLine("Pressione qualquer tecla para continuar...");
             Console.ReadKey();
         }
+        protected override bool TentarAtualizarEntidadeExistente(Medicamento novoMed)
+        {
+            var medicamentos = repositorio.SelecionarRegistros();
+
+            var existente = medicamentos
+                .FirstOrDefault(m => m.Nome.Equals(novoMed.Nome, StringComparison.OrdinalIgnoreCase)
+                                     && m.Fornecedor.Id == novoMed.Fornecedor.Id);
+
+            if (existente != null)
+            {
+                existente.Quantidade += novoMed.Quantidade;
+
+                Notificador.ExibirMensagem("Medicamento já existia. Quantidade atualizada com sucesso.", ConsoleColor.Green);
+                return true;
+            }
+
+            return false;
+        }
     }
 }

@@ -55,6 +55,12 @@ public abstract class TelaBase<T> where T : EntidadeBase<T>
 
         T novoRegistro = ObterDados();
 
+        if (TentarAtualizarEntidadeExistente(novoRegistro))
+            return;
+
+        if (!PodeCadastrar(novoRegistro))
+            return;
+
         string erros = novoRegistro.Validar();
 
         if (erros.Length > 0)
@@ -126,6 +132,9 @@ public abstract class TelaBase<T> where T : EntidadeBase<T>
         Console.Write("Digite o ID do registro que deseja selecionar: ");
         int idRegistro = Convert.ToInt32(Console.ReadLine());
 
+        if (!PodeExcluir(idRegistro))
+            return;
+
         Console.WriteLine();
 
         bool conseguiuExcluir = repositorio.ExcluirRegistro(idRegistro);
@@ -140,6 +149,8 @@ public abstract class TelaBase<T> where T : EntidadeBase<T>
         Notificador.ExibirMensagem("O registro foi excluído com sucesso!", ConsoleColor.Green);
     }
 
+    protected virtual bool PodeCadastrar(T entidade) => true;
+    protected virtual bool PodeExcluir(int id) => true;
     public abstract void VisualizarRegistros(bool exibirTitulo);
 
     public abstract T ObterDados();
@@ -147,4 +158,6 @@ public abstract class TelaBase<T> where T : EntidadeBase<T>
     protected abstract void ExibirCabecalhoTabela();
 
     protected abstract void ExibirLinhaTabela(T registro);
+
+    protected virtual bool TentarAtualizarEntidadeExistente(T entidade) => false;
 }

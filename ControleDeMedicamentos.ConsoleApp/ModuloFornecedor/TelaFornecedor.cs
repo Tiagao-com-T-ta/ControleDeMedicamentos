@@ -1,17 +1,49 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+﻿
+
+using ControleDeMedicamentos.ConsoleApp.ControleDeMedicamentos.ConsoleApp;
+using ControleDeMedicamentos.ConsoleApp.ModuloMedicamento;
+using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.Util;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ControleDeMedicamentos.ConsoleApp.ModuloFornecedor
 {
-    class TelaFornecedor : TelaBase<Fornecedor>, ITelaCrud
+    public class TelaFornecedor : TelaBase<Fornecedor>, ITelaCrud
     {
-        public TelaFornecedor(IRepositorioFornecedor repositorio) : base("Fornecedor", repositorio)
+        private IRepositorioFornecedor repositorioFornecedor;
+        private IRepositorioMedicamento repositorioMedicamento;
+
+        public TelaFornecedor(IRepositorioFornecedor repositorioFornecedor, IRepositorioMedicamento repositorioMedicamento)
+            : base("Fornecedor", repositorioFornecedor)
         {
+            this.repositorioFornecedor = repositorioFornecedor;
+            this.repositorioMedicamento = repositorioMedicamento;
+        }
+
+    
+        protected override bool PodeCadastrar(Fornecedor fornecedor)
+        {
+            if (repositorioFornecedor.CnpjDuplicado(fornecedor.CNPJ))
+            {
+                Notificador.ExibirMensagem("CNPJ já cadastrado para outro fornecedor.", ConsoleColor.Red);
+                return false;
+            }
+
+            return true;
+        }
+
+        protected override bool PodeExcluir(int id)
+        {
+            bool temVinculo = repositorioMedicamento
+                .SelecionarRegistros()
+                .Any(m => m.Fornecedor.Id == id);
+
+            if (temVinculo)
+            {
+                Notificador.ExibirMensagem("Fornecedor vinculado a medicamentos. Exclusão não permitida.", ConsoleColor.Red);
+                return false;
+            }
+
+            return true;
         }
 
         public override Fornecedor ObterDados()

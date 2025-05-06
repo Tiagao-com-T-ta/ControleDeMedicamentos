@@ -50,5 +50,9 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloFornecedor
         {
             return fornecedores;
         }
+        public bool CnpjDuplicado(string cnpj)
+        {
+            return fornecedores.Any(f => f.CNPJ == cnpj);
+        }
     }
 }

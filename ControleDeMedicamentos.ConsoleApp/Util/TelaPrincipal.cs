@@ -26,13 +26,12 @@ public class TelaPrincipal
         IRepositorioMedicamento repositorioMedicamento = new RepositorioMedicamentoEmArquivo(contexto);
         IRepositorioPrescricao repositorioPrescricao = new RepositorioPrescricaoEmArquivo(contexto);
 
-        telaFornecedor = new TelaFornecedor(repositorioFornecedor);
+        telaFornecedor = new TelaFornecedor(repositorioFornecedor, repositorioMedicamento);
         telaMedicamento = new TelaMedicamento(repositorioMedicamento, repositorioFornecedor);
         telaPrescricao = new TelaPrescricao(repositorioPrescricao, repositorioMedicamento);
 
         IRepositorioFuncionario repositorioFuncionario = new RepositorioFuncionarioEmArquivo(contexto);
         telaFuncionario = new TelaFuncionario(repositorioFuncionario);
-
     }
 
     public void ApresentarMenuPrincipal()
@@ -58,7 +57,7 @@ public class TelaPrincipal
     }
 
         public ITelaCrud ObterTela()
-    {
+        {
         if (opcaoPrincipal == '1')
             return telaFornecedor;
         else if (opcaoPrincipal == '2')

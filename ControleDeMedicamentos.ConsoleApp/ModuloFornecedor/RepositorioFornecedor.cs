@@ -11,13 +11,26 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloFornecedor
     {
         public RepositorioFornecedorEmArquivo(ContextoDados contexto) : base(contexto)
         {
-        }
 
+        }
         protected override List<Fornecedor> ObterRegistros()
         {
             return contexto.Fornecedores;
         }
+        public bool CnpjDuplicado(string cnpj, int idDesconsiderar = 0)
+        {
+            foreach (var fornecedor in SelecionarRegistros())
+            {
+                if (fornecedor.CNPJ == cnpj && fornecedor.Id != idDesconsiderar)
+                    return true;
+            }
 
-        
+            return false;
+        }
+        public bool CnpjDuplicado(string cnpj)
+        {
+            return ObterRegistros().Any(f => f.CNPJ == cnpj);
+        }
     }
+
 }
