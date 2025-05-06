@@ -1,4 +1,5 @@
 ﻿
+using ControleDeMedicamentos.ConsoleApp.ModuloPrescricao;
 using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.Util;
 
@@ -27,6 +28,21 @@ namespace ControleDeMedicamentos.ConsoleApp
                     case '3': telaSelecionada.ExcluirRegistro(); break;
 
                     case '4': telaSelecionada.VisualizarRegistros(true); break;
+
+                    case '5':
+                        {
+                            if (telaSelecionada is TelaPrescricao telaPrescricao)
+                                telaPrescricao.VisualizarRelatoriosFiltrados();
+                            break;
+                        }
+                    case '6':
+                        {
+                            if (telaSelecionada is TelaPrescricao telaPrescricao)
+                                telaPrescricao.ValidarPrescricao();
+                            break;
+                        }
+
+                    case 's' or 'S': break;
 
                     default: break;
                 }

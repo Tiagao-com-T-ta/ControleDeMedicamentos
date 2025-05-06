@@ -67,7 +67,16 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPrescricao
                 adicionarMais = Console.ReadLine().ToUpper() == "S";
             }
 
-            return new Prescricao(crm, data, itens);
+            var novaPrescricao = new Prescricao(crm, data, itens);
+            string erroEstoque = novaPrescricao.ValidarEstoque(repositorioMedicamento);
+
+            if (!string.IsNullOrEmpty(erroEstoque))
+            {
+                Notificador.ExibirMensagem(erroEstoque, ConsoleColor.Red);
+                return null;
+            }
+
+            return novaPrescricao;
         }
 
         protected override void ExibirCabecalhoTabela()
@@ -197,5 +206,51 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPrescricao
             Console.WriteLine("\nPressione qualquer tecla para continuar...");
             Console.ReadKey();
         }
+        protected override void ExibirOpcoesExtrasDoMenu()
+        {
+            Console.WriteLine("5 - Visualizar Relatórios Filtrados");
+            Console.WriteLine("6 - Validar Prescrição");
+        }
+        public void VisualizarRelatoriosFiltrados()
+        {
+            Console.Clear();
+            Console.WriteLine("=== Relatórios de Prescrições ===\n");
+
+            Console.Write("Filtrar por Data (dd/MM/yyyy) [Enter para ignorar]: ");
+            string dataFiltroStr = Console.ReadLine();
+
+            Console.Write("Filtrar por Nome do Paciente [Enter para ignorar]: ");
+            string pacienteFiltro = Console.ReadLine();
+
+            Console.Write("Filtrar por Nome do Medicamento [Enter para ignorar]: ");
+            string medicamentoFiltro = Console.ReadLine();
+
+            DateTime? dataFiltro = null;
+            if (DateTime.TryParse(dataFiltroStr, out DateTime dataConvertida))
+                dataFiltro = dataConvertida;
+
+            List<Prescricao> prescricoes = repositorio.SelecionarRegistros();
+
+            var prescricoesFiltradas = prescricoes.Where(p =>
+                (dataFiltro == null || p.Data.Date == dataFiltro.Value.Date) &&
+                (string.IsNullOrWhiteSpace(pacienteFiltro) || p.CrmMedico.Contains(pacienteFiltro, StringComparison.OrdinalIgnoreCase)) &&
+                (string.IsNullOrWhiteSpace(medicamentoFiltro) || p.Medicamentos.Any(i => repositorioMedicamento.SelecionarRegistroPorId(i.MedicamentoId).Nome.Contains(medicamentoFiltro, StringComparison.OrdinalIgnoreCase)))
+            ).ToList();
+
+            if (prescricoesFiltradas.Count == 0)
+            {
+                Notificador.ExibirMensagem("Nenhuma prescrição encontrada com os filtros informados.", ConsoleColor.Yellow);
+                return;
+            }
+
+            foreach (var p in prescricoesFiltradas)
+            {
+                Console.WriteLine(p);
+                Console.WriteLine("------------------------------------");
+            }
+
+            Console.ReadLine();
+        }
+
     }
 }

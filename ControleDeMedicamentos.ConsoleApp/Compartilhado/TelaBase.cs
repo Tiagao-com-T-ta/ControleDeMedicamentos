@@ -31,6 +31,8 @@ public abstract class TelaBase<T> where T : EntidadeBase<T>
         Console.WriteLine($"2 - Editar {nomeEntidade}");
         Console.WriteLine($"3 - Excluir {nomeEntidade}");
         Console.WriteLine($"4 - Visualizar {nomeEntidade}s");
+        
+        ExibirOpcoesExtrasDoMenu();
 
         Console.WriteLine("S - Voltar");
 
@@ -160,4 +162,6 @@ public abstract class TelaBase<T> where T : EntidadeBase<T>
     protected abstract void ExibirLinhaTabela(T registro);
 
     protected virtual bool TentarAtualizarEntidadeExistente(T entidade) => false;
+
+    protected virtual void ExibirOpcoesExtrasDoMenu(){ }
 }

@@ -48,6 +48,7 @@ public class TelaPrincipal
         Console.WriteLine("2 - Controle de Medicamentos");
         Console.WriteLine("3 - Prescrições Médicas");
         Console.WriteLine("4 - Controle de funcionários");
+        Console.WriteLine("5 - Prescrições");
         Console.WriteLine("S - Sair");
 
         Console.WriteLine();
@@ -66,7 +67,9 @@ public class TelaPrincipal
             return telaPrescricao;
         else if (opcaoPrincipal == '4')
             return telaFuncionario;
+        else if (opcaoPrincipal == '5')
+            return telaPrescricao;
 
-      return null;
+            return null;
 }
 }

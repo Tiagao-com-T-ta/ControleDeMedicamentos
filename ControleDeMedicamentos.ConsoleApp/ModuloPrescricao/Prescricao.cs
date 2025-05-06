@@ -16,6 +16,8 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPrescricao
         public List<ItemPrescricao> Medicamentos { get; set; }
         public bool Validada { get; set; }
 
+        public Prescricao() {}
+
         public Prescricao(string crmMedico, DateTime data, List<ItemPrescricao> medicamentos)
         {
             CrmMedico = crmMedico;
