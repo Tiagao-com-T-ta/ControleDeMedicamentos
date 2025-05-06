@@ -14,7 +14,7 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloMedicamento
         public string Descricao { get; set; }
         public int Quantidade { get; set; }
         public Fornecedor Fornecedor { get; set; }
-
+        public Medicamento() { }
         public Medicamento(string nome, string descricao, int quantidade, Fornecedor fornecedor)
         {
             Nome = nome;

@@ -13,6 +13,7 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloFornecedor
         public string Nome { get; set; }
         public string Telefone { get; set; }
         public string CNPJ { get; set; }
+        public Fornecedor() { }
 
         public Fornecedor(string nome, string telefone, string cnpj)
         {
