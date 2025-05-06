@@ -37,41 +37,9 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
             Console.WriteLine("Digite a data de nascimento do Paciente: ");
             DateTime dataNascimento = Convert.ToDateTime(Console.ReadLine());
 
-            Paciente paciente = new Paciente()
-            {
-                Nome = nome,
-                Telefone = telefone,
-                CPF = cpf,
-                Endereco = endereco,
-                DataNascimento = dataNascimento
-            };
-
+            Paciente paciente = new Paciente(nome, cpf, dataNascimento, telefone, endereco);
+            
             return paciente;
-        }
-
-        public override void VisualizarRegistros(bool exibirTitulo)
-        {
-            if (exibirTitulo)
-                ExibirCabecalho();
-
-            Console.WriteLine();
-
-            List<Paciente> pacientes = repositorio.SelecionarRegistros();
-
-            if (pacientes == null || pacientes.Count == 0)
-            {
-                Notificador.ExibirMensagem("Nenhum paciente encontrado.", ConsoleColor.DarkYellow);
-                return;
-            }
-
-            ExibirCabecalhoTabela();
-
-            foreach (Paciente paciente in pacientes)
-            {
-                ExibirLinhaTabela(paciente);
-            }
-
-            Console.WriteLine();
         }
 
         protected override void ExibirCabecalhoTabela()
@@ -85,5 +53,32 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
             Console.WriteLine("{0, 10} | {1, 30} | {2, 20} | {3, 20}",
            paciente.Id, paciente.Nome, paciente.Telefone, paciente.CPF);
         }
+
+        public override void VisualizarRegistros(bool exibirTitulo)
+        {
+            if (exibirTitulo)
+                ExibirCabecalho();
+
+            Console.WriteLine();
+
+            List<Paciente> pacientes = repositorio.SelecionarRegistros();
+
+            if (pacientes.Count == 0)
+            {
+                Notificador.ExibirMensagem("Nenhum paciente encontrado.", ConsoleColor.DarkYellow);
+                return;
+            }
+
+            ExibirCabecalhoTabela();
+
+            foreach (Paciente paciente in pacientes)
+            {
+                ExibirLinhaTabela(paciente);
+            }
+
+            Console.WriteLine();
+            Console.ReadLine();
+        }
+
     }
 }

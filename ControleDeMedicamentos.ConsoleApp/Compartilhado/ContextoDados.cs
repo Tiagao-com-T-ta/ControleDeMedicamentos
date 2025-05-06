@@ -14,7 +14,7 @@ public class ContextoDados
     public List<Medicamento> Medicamentos { get; set; }
     public List<Prescricao> Prescricoes { get; set; }
     public List<Funcionario> Funcionarios { get; set; }
-    public List<Paciente> Pacientes { get; internal set; }
+    public List<Paciente> Pacientes { get; set; }
 
     private string pastaArmazenamento = "C:\\temp";
     private string arquivoArmazenamento = "dados.json";
@@ -25,7 +25,6 @@ public class ContextoDados
         Fornecedores = new List<Fornecedor>();
         Medicamentos = new List<Medicamento>();
         Prescricoes = new List<Prescricao>();
-
         Funcionarios = new List<Funcionario>();
     }
 

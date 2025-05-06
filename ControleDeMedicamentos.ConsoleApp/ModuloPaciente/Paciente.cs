@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
@@ -14,6 +15,16 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
         public DateTime DataNascimento { get; set; }
         public string Telefone { get; set; }
         public string Endereco { get; set; }
+
+        public Paciente(string nome, string cPF, DateTime dataNascimento, string telefone, string endereco)
+        {
+            Nome = nome;
+            CPF = cPF;
+            DataNascimento = dataNascimento;
+            Telefone = telefone;
+            Endereco = endereco;
+        }
+
         public override void AtualizarRegistro(Paciente registroEditado)
         {
             Nome = registroEditado.Nome;
@@ -26,25 +37,20 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
         {
             List<string> erros = new();
 
-            if (string.IsNullOrEmpty(Nome))
-                erros.Add("O campo Nome é obrigatório");
-            if (string.IsNullOrEmpty(CPF))
-                erros.Add("O campo CPF é obrigatório");
-            if (string.IsNullOrEmpty(Endereco))
-                erros.Add("O campo Endereço é obrigatório");
-            if (DataNascimento == DateTime.MinValue)
-                erros.Add("O campo Data de Nascimento é obrigatório");
-            if (DataNascimento > DateTime.Now)
-                erros.Add("A data de nascimento não pode ser maior que a data atual");
-            if (DataNascimento < DateTime.Now.AddYears(-120))
-                erros.Add("A data de nascimento não pode ser menor que 120 anos atrás");
-            if (string.IsNullOrEmpty(Telefone))
-                erros.Add("O campo Telefone é obrigatório");
+            if (string.IsNullOrWhiteSpace(Nome) || Nome.Length < 3 || Nome.Length > 100)
+             erros.Add("O nome deve conter entre 3 e 100 caracteres.");
 
-            if (erros.Count > 0)
-                return string.Join(Environment.NewLine, erros);
+            if (!Regex.IsMatch(Telefone ?? "", @"^(?\d{2})?\s?\d{4,5}-\d{4}$"))
+                erros.Add("O telefone está em formato inválido. Use (XX) XXXX-XXXX ou (XX) XXXXX-XXXX.");
 
-            else return "Paciente válido";
+            if (!Regex.IsMatch(CPF ?? "", @"^\d{11}$"))
+                erros.Add("O CPF deve conter exatamente 11 dígitos.");
+
+            return string.Join(Environment.NewLine, erros);
+        }
+        public override string ToString()
+        {
+            return $"ID: {Id} | Nome: {Nome} | Telefone: {Telefone} | CPF: {CPF}";
         }
     }
 
