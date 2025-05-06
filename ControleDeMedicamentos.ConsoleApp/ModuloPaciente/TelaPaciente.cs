@@ -11,18 +11,14 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
 {
     public class TelaPaciente : TelaBase<Paciente>, ITelaCrud
     {
-        private IRepositorioPaciente repositorioPaciente1;
-        private IRepositorioPaciente repositorioPaciente2;
+        private IRepositorioPaciente repositorioPaciente;
 
-        public TelaPaciente(string nomeEntidade, IRepositorioPaciente repositorio)
-               : base(nomeEntidade, repositorio)
+
+        public TelaPaciente(IRepositorioPaciente repositorioPaciente) : base("Paciente", repositorioPaciente)
         {
+            this.repositorioPaciente = repositorioPaciente;
         }
-        public TelaPaciente(IRepositorioPaciente repositorioPaciente1, IRepositorioPaciente repositorioPaciente2)
-        {
-            this.repositorioPaciente1 = repositorioPaciente1;
-            this.repositorioPaciente2 = repositorioPaciente2;
-        }
+
 
         public override Paciente ObterDados()
         {
@@ -35,7 +31,7 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
             Console.WriteLine("Digite o CPF do Paciente: ");
             string cpf = Console.ReadLine()!;
 
-            Console.WriteLine("Digite o CPF do Paciente: ");
+            Console.WriteLine("Digite o endereço do Paciente: ");
             string endereco = Console.ReadLine()!;
 
             Console.WriteLine("Digite a data de nascimento do Paciente: ");
@@ -62,7 +58,7 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
 
             List<Paciente> pacientes = repositorio.SelecionarRegistros();
 
-            if (pacientes.Count == 0 || pacientes == null)
+            if (pacientes == null || pacientes.Count == 0)
             {
                 Notificador.ExibirMensagem("Nenhum paciente encontrado.", ConsoleColor.DarkYellow);
                 return;

@@ -32,7 +32,7 @@ public class TelaPrincipal
         telaFornecedor = new TelaFornecedor(repositorioFornecedor);
         telaMedicamento = new TelaMedicamento(repositorioMedicamento, repositorioFornecedor);
         telaPrescricao = new TelaPrescricao(repositorioPrescricao, repositorioMedicamento);
-        telaPaciente = new TelaPaciente(repositorioPaciente, repositorioPaciente);
+        telaPaciente = new TelaPaciente(repositorioPaciente);
 
         IRepositorioFuncionario repositorioFuncionario = new RepositorioFuncionarioEmArquivo(contexto);
         telaFuncionario = new TelaFuncionario(repositorioFuncionario);
@@ -62,7 +62,7 @@ public class TelaPrincipal
         opcaoPrincipal = Console.ReadLine()![0];
     }
 
-        public ITelaCrud ObterTela()
+    public ITelaCrud ObterTela()
     {
         if (opcaoPrincipal == '1')
             return telaFornecedor;
@@ -75,7 +75,7 @@ public class TelaPrincipal
         else if (opcaoPrincipal == '5')
             return telaPaciente;
 
-        return null;
-}
+        return null!;
+    }
 }
 

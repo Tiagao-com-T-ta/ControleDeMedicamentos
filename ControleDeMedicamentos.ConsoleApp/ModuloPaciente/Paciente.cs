@@ -24,7 +24,27 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
         }
         public override string Validar()
         {
-            return "Paciente válido";
+            List<string> erros = new();
+
+            if (string.IsNullOrEmpty(Nome))
+                erros.Add("O campo Nome é obrigatório");
+            if (string.IsNullOrEmpty(CPF))
+                erros.Add("O campo CPF é obrigatório");
+            if (string.IsNullOrEmpty(Endereco))
+                erros.Add("O campo Endereço é obrigatório");
+            if (DataNascimento == DateTime.MinValue)
+                erros.Add("O campo Data de Nascimento é obrigatório");
+            if (DataNascimento > DateTime.Now)
+                erros.Add("A data de nascimento não pode ser maior que a data atual");
+            if (DataNascimento < DateTime.Now.AddYears(-120))
+                erros.Add("A data de nascimento não pode ser menor que 120 anos atrás");
+            if (string.IsNullOrEmpty(Telefone))
+                erros.Add("O campo Telefone é obrigatório");
+
+            if (erros.Count > 0)
+                return string.Join(Environment.NewLine, erros);
+
+            else return "Paciente válido";
         }
     }
 

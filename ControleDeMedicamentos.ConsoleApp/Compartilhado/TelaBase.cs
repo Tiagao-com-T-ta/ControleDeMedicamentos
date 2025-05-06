@@ -60,9 +60,6 @@ public abstract class TelaBase<T> where T : EntidadeBase<T>
         if (erros.Length > 0)
         {
             Notificador.ExibirMensagem(erros, ConsoleColor.Red);
-
-            CadastrarRegistro();
-
             return;
         }
 
