@@ -7,6 +7,7 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
     {
         public RepositorioPacienteEmArquivo(ContextoDados contexto) : base(contexto)
         {
+
         }
         protected override List<Paciente> ObterRegistros()
         {

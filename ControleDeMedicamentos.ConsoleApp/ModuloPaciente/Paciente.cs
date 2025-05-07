@@ -40,8 +40,8 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
             if (string.IsNullOrWhiteSpace(Nome) || Nome.Length < 3 || Nome.Length > 100)
              erros.Add("O nome deve conter entre 3 e 100 caracteres.");
 
-            if (!Regex.IsMatch(Telefone ?? "", @"^(?\d{2})?\s?\d{4,5}-\d{4}$"))
-                erros.Add("O telefone está em formato inválido. Use (XX) XXXX-XXXX ou (XX) XXXXX-XXXX.");
+            //if (!Regex.IsMatch(Telefone ?? "", @"^(?\d{2})?\s?\d{4,5}-\d{4}$"))
+               // erros.Add("O telefone está em formato inválido. Use (XX) XXXX-XXXX ou (XX) XXXXX-XXXX.");
 
             if (!Regex.IsMatch(CPF ?? "", @"^\d{11}$"))
                 erros.Add("O CPF deve conter exatamente 11 dígitos.");

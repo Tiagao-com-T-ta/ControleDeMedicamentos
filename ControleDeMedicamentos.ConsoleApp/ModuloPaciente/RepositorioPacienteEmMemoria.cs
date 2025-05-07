@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
 {
-    internal class RepositorioPacienteEmMemoria : IRepositorioPaciente
+    public class RepositorioPacienteEmMemoria : IRepositorioPaciente
     {
         private List<Paciente> pacientes = new List<Paciente>();
         private int ContadorIds = 0;
