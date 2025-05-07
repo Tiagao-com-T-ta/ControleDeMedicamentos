@@ -1,4 +1,5 @@
 ﻿using ControleDeMedicamentos.ConsoleApp.ControleDeMedicamentos.ConsoleApp;
+using ControleDeMedicamentos.ConsoleApp.ModuloPaciente;
 using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPrescricao
         public DateTime Data { get; set; }
         public List<ItemPrescricao> Medicamentos { get; set; }
         public bool Validada { get; set; }
+        public Paciente Paciente { get; set; }
 
         public Prescricao(string crmMedico, DateTime data, List<ItemPrescricao> medicamentos)
         {
@@ -22,6 +24,7 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPrescricao
             Data = data;
             Medicamentos = medicamentos;
             Validada = false;
+            Paciente = null!;
         }
 
         public override void AtualizarRegistro(Prescricao registroEditado)

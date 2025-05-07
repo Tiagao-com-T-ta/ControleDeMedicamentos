@@ -32,7 +32,7 @@ public class TelaPrincipal
         telaFornecedor = new TelaFornecedor(repositorioFornecedor);
         telaMedicamento = new TelaMedicamento(repositorioMedicamento, repositorioFornecedor);
         telaPrescricao = new TelaPrescricao(repositorioPrescricao, repositorioMedicamento);
-        telaPaciente = new TelaPaciente(repositorioPaciente);
+        telaPaciente = new TelaPaciente(repositorioPaciente, (RepositorioPrescricaoEmArquivo)repositorioPrescricao);
 
         IRepositorioFuncionario repositorioFuncionario = new RepositorioFuncionarioEmArquivo(contexto);
         telaFuncionario = new TelaFuncionario(repositorioFuncionario);

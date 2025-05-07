@@ -1,4 +1,5 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,11 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPrescricao
             return contexto.Prescricoes
                 .Where(p => p.Data >= inicio && p.Data <= fim)
                 .ToList();
+        }
+
+        public bool ExistePrescricaoParaPaciente(int pacienteId)
+        {
+            return registros.Any(p => p.Paciente.Id == pacienteId);
         }
     }
 }

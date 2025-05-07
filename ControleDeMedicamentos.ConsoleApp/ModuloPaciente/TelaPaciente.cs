@@ -1,4 +1,5 @@
 ﻿using ControleDeMedicamentos.ConsoleApp.ModuloFuncionario;
+using ControleDeMedicamentos.ConsoleApp.ModuloPrescricao;
 using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.Util;
 using System;
@@ -12,13 +13,14 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
     public class TelaPaciente : TelaBase<Paciente>, ITelaCrud
     {
         private IRepositorioPaciente repositorioPaciente;
+        private RepositorioPrescricaoEmArquivo repositorioPrescricao;
 
 
-        public TelaPaciente(IRepositorioPaciente repositorioPaciente) : base("Paciente", repositorioPaciente)
+        public TelaPaciente(IRepositorioPaciente repositorioPaciente, RepositorioPrescricaoEmArquivo repositorioPrescricao) : base("Paciente", repositorioPaciente)
         {
             this.repositorioPaciente = repositorioPaciente;
+            this.repositorioPrescricao = repositorioPrescricao;
         }
-
 
         public override Paciente ObterDados()
         {
@@ -150,18 +152,19 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
             Notificador.ExibirMensagem("O paciente foi excluído com sucesso!", ConsoleColor.Green);
         }
 
-        private bool ExisteVinculosComRegistrosClinicos(Paciente paciente)
+        /* private bool ExisteVinculosComRegistrosClinicos(Paciente paciente)
         {
             // Verifique se o paciente tem alguma propriedade, lista ou campo de registros clínicos
             // por exemplo, vamos supor que cada paciente tenha uma lista de "RegistrosClinicos"
 
             if (paciente.RegistrosClinicos != null && paciente.RegistrosClinicos.Count > 0)
             {
-                return true;  
+                return true;
             }
 
-            return false; 
+            return false;
         }
+        */
 
         protected override void ExibirCabecalhoTabela()
         {
@@ -199,6 +202,19 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
 
             Console.WriteLine();
             Console.ReadLine();
+        }
+
+        private bool ExisteVinculosComRegistrosClinicos(Paciente paciente)
+        {
+            List<Prescricao> prescricoes = repositorioPrescricao.SelecionarRegistros();
+
+            foreach (var prescricao in prescricoes)
+            {
+                if (prescricao.Paciente.Id == paciente.Id)
+                    return true;
+            }
+
+            return false;
         }
 
     }
