@@ -51,6 +51,63 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
             return paciente;
         }
 
+        public override void EditarRegistro()
+        {
+            ExibirCabecalho();
+
+            Console.WriteLine($"Editando {nomeEntidade}...");
+            Console.WriteLine("----------------------------------------");
+
+            Console.WriteLine();
+
+            VisualizarRegistros(false);
+
+            Console.Write("Digite o ID do registro que deseja editar: ");
+            int idRegistro = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine();
+
+            Paciente pacienteExistente = repositorioPaciente.SelecionarRegistroPorId(idRegistro);
+
+            if (pacienteExistente == null)
+            {
+                Notificador.ExibirMensagem("Paciente não encontrado.", ConsoleColor.Red);
+                return;
+            }
+
+            Paciente pacienteEditado = ObterDados();
+
+            if (pacienteEditado == null)
+            {
+                return;
+            }
+
+            string erros = pacienteEditado.Validar();
+
+            if (erros.Length > 0)
+            {
+                Notificador.ExibirMensagem(erros, ConsoleColor.Red);
+                return;
+            }
+
+            if (pacienteEditado.CartaoSUS != pacienteExistente.CartaoSUS &&
+                repositorioPaciente.CartaoSUSJaExiste(pacienteEditado.CartaoSUS))
+            {
+                Notificador.ExibirMensagem("Este Cartão SUS já está associado a outro paciente.", ConsoleColor.Red);
+                return;
+            }
+
+            bool conseguiuEditar = repositorioPaciente.EditarRegistro(idRegistro, pacienteEditado);
+
+            if (!conseguiuEditar)
+            {
+                Notificador.ExibirMensagem("Houve um erro durante a edição do registro...", ConsoleColor.Red);
+                return;
+            }
+
+            Notificador.ExibirMensagem("O registro foi editado com sucesso!", ConsoleColor.Green);
+        }
+
         protected override void ExibirCabecalhoTabela()
         {
             Console.WriteLine("{0, 10} | {1, 30} | {2, 20} | {3, 20} | {4, 20}",

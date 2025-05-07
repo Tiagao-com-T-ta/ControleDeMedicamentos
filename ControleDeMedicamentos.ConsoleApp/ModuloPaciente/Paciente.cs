@@ -35,6 +35,9 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
             DataNascimento = registroEditado.DataNascimento;
             Telefone = registroEditado.Telefone;
             Endereco = registroEditado.Endereco;
+            CartaoSUS = registroEditado.CartaoSUS;
+
+
         }
         public override string Validar()
         {

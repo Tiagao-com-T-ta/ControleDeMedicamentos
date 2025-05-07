@@ -90,6 +90,14 @@ public abstract class TelaBase<T> where T : EntidadeBase<T>
 
         Console.WriteLine();
 
+        T registroExistente = repositorio.SelecionarRegistroPorId(idRegistro);
+
+        if (registroExistente == null)
+        {
+            Notificador.ExibirMensagem("Registro não encontrado.", ConsoleColor.Red);
+            return;
+        }
+
         T registroEditado = ObterDados();
 
         string erros = registroEditado.Validar();
