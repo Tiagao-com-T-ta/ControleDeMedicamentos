@@ -1,4 +1,5 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+﻿using ControleDeMedicamentos.ConsoleApp.Compartilhado;
+using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.Util;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
         public string Telefone { get; set; }
         public string CartaoSUS { get; set; }
         public string Endereco { get; set; }
+
+        public List<RegistroClinico> RegistrosClinicos { get; set; } = new List<RegistroClinico>();
 
         public Paciente(string nome, string cPF, DateTime dataNascimento, string telefone, string endereco, string cartaoSUS)
         {

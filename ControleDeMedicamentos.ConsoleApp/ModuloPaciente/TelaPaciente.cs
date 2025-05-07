@@ -108,6 +108,61 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
             Notificador.ExibirMensagem("O registro foi editado com sucesso!", ConsoleColor.Green);
         }
 
+        public override void ExcluirRegistro()
+        {
+            ExibirCabecalho();
+
+            Console.WriteLine($"Excluindo {nomeEntidade}...");
+            Console.WriteLine("----------------------------------------");
+
+            Console.WriteLine();
+
+            VisualizarRegistros(false);
+
+            Console.Write("Digite o ID do registro que deseja excluir: ");
+            int idRegistro = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine();
+
+            Paciente pacienteExistente = repositorioPaciente.SelecionarRegistroPorId(idRegistro);
+
+            if (pacienteExistente == null)
+            {
+                Notificador.ExibirMensagem("Paciente não encontrado.", ConsoleColor.Red);
+                return;
+            }
+
+            // Verificar se o paciente tem vínculos (por exemplo, registros clínicos)
+            if (ExisteVinculosComRegistrosClinicos(pacienteExistente))
+            {
+                Notificador.ExibirMensagem("Não é possível excluir o paciente, pois ele tem registros clínicos vinculados.", ConsoleColor.Red);
+                return;
+            }
+
+            bool conseguiuExcluir = repositorioPaciente.ExcluirRegistro(idRegistro);
+
+            if (!conseguiuExcluir)
+            {
+                Notificador.ExibirMensagem("Houve um erro durante a exclusão do registro...", ConsoleColor.Red);
+                return;
+            }
+
+            Notificador.ExibirMensagem("O paciente foi excluído com sucesso!", ConsoleColor.Green);
+        }
+
+        private bool ExisteVinculosComRegistrosClinicos(Paciente paciente)
+        {
+            // Verifique se o paciente tem alguma propriedade, lista ou campo de registros clínicos
+            // por exemplo, vamos supor que cada paciente tenha uma lista de "RegistrosClinicos"
+
+            if (paciente.RegistrosClinicos != null && paciente.RegistrosClinicos.Count > 0)
+            {
+                return true;  
+            }
+
+            return false; 
+        }
+
         protected override void ExibirCabecalhoTabela()
         {
             Console.WriteLine("{0, 10} | {1, 30} | {2, 20} | {3, 20} | {4, 20}",
