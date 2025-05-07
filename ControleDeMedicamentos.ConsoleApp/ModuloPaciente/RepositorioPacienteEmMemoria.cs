@@ -1,4 +1,6 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+using GestaoDeEquipamentos.ConsoleApp.Util;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +17,7 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
         public void CadastrarRegistro(Paciente novoRegistro)
         {
             novoRegistro.Id = ++ContadorIds;
-            pacientes.Add(novoRegistro);
+            pacientes.Add(novoRegistro);           
         }
 
         public bool EditarRegistro(int idRegistro, Paciente registroEditado)
@@ -34,9 +36,16 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
         {
             Paciente pacienteExistente = SelecionarRegistroPorId(idRegistro);
 
-            if (pacienteExistente == null) { return false; }
+            if (pacienteExistente == null)
+                return false;
 
             pacientes.Remove(pacienteExistente);
+
+            for (int i = 0; i < pacientes.Count; i++)
+                pacientes[i].Id = i + 1;
+
+            ContadorIds = pacientes.Count;
+
             return true;
         }
 
@@ -48,6 +57,11 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
         public List<Paciente> SelecionarRegistros()
         {
             return pacientes;
+        }
+
+        public bool CartaoSUSJaExiste(string cartaoSUS)
+        {
+            return pacientes.Any(p => p.CartaoSUS == cartaoSUS);
         }
 
     }

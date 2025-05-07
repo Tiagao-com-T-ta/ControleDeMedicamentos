@@ -55,6 +55,12 @@ public abstract class TelaBase<T> where T : EntidadeBase<T>
 
         T novoRegistro = ObterDados();
 
+        if(novoRegistro == null)
+        {
+            Notificador.ExibirMensagem("Não foi possível cadastrar o registro.", ConsoleColor.Red);
+            return;
+        }
+
         string erros = novoRegistro.Validar();
 
         if (erros.Length > 0)

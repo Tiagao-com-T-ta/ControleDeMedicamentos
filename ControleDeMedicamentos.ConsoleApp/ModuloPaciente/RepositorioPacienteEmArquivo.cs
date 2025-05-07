@@ -9,6 +9,12 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
         {
 
         }
+
+        public bool CartaoSUSJaExiste(string cartaoSUS)
+        {
+            return contexto.Pacientes.Any(p => p.CartaoSUS == cartaoSUS);
+        }
+
         protected override List<Paciente> ObterRegistros()
         {
             return contexto.Pacientes;

@@ -31,27 +31,36 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPaciente
             Console.WriteLine("Digite o CPF do Paciente: ");
             string cpf = Console.ReadLine()!;
 
+            Console.WriteLine("Digite o ID do Cartão SUS do Paciente: ");
+            string cartaoSUS = Console.ReadLine()!;
+
             Console.WriteLine("Digite o endereço do Paciente: ");
             string endereco = Console.ReadLine()!;
 
             Console.WriteLine("Digite a data de nascimento do Paciente: ");
             DateTime dataNascimento = Convert.ToDateTime(Console.ReadLine());
 
-            Paciente paciente = new Paciente(nome, cpf, dataNascimento, telefone, endereco);
-            
+            Paciente paciente = new Paciente(nome, cpf, dataNascimento, telefone, endereco, cartaoSUS);
+
+            if (repositorioPaciente.CartaoSUSJaExiste(paciente.CartaoSUS))
+            {
+                Notificador.ExibirMensagem("Cartão do SUS já cadastrado para outro paciente.", ConsoleColor.Red);
+                return null!;
+            }
+
             return paciente;
         }
 
         protected override void ExibirCabecalhoTabela()
         {
-            Console.WriteLine("{0, 10} | {1, 30} | {2, 20} | {3, 20}",
-                                "Id", "Nome", "Telefone", "CPF");
+            Console.WriteLine("{0, 10} | {1, 30} | {2, 20} | {3, 20} | {4, 20}",
+                                "Id", "Nome", "Telefone", "CPF", "ID - SUS");
         }
 
         protected override void ExibirLinhaTabela(Paciente paciente)
         {
-            Console.WriteLine("{0, 10} | {1, 30} | {2, 20} | {3, 20}",
-           paciente.Id, paciente.Nome, paciente.Telefone, paciente.CPF);
+            Console.WriteLine("{0, 10} | {1, 30} | {2, 20} | {3, 20} | {4, 20}",
+           paciente.Id, paciente.Nome, paciente.Telefone, paciente.CPF, paciente.CartaoSUS);
         }
 
         public override void VisualizarRegistros(bool exibirTitulo)
