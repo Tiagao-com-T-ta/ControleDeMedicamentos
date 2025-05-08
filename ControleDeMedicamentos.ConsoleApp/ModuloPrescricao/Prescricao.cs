@@ -73,8 +73,8 @@ namespace ControleDeMedicamentos.ConsoleApp.ModuloPrescricao
     public class ItemPrescricao
     {
         public int MedicamentoId { get; set; }
-        public string Dosagem { get; set; }
-        public string Periodo { get; set; }
+        public string? Dosagem { get; set; }
+        public string? Periodo { get; set; }
         public int Quantidade { get; set; }
     }
 }

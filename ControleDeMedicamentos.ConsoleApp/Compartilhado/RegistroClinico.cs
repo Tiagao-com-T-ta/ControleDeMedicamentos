@@ -9,18 +9,20 @@ namespace ControleDeMedicamentos.ConsoleApp.Compartilhado
 {
     public class RegistroClinico : EntidadeBase<RegistroClinico>
     {
-        public int IdPaciente { get; set; }
-        public DateTime DataRegistro { get; set; }
-        public string Descricao { get; set; }
-        public string Observacoes { get; set; }
-        public string Diagnostico { get; set; }
+        public int? IdPaciente { get; set; }
+        public DateTime? DataRegistro { get; set; }
+        public string? Descricao { get; set; }
+        public string? Observacoes { get; set; }
+        public string? Diagnostico { get; set; }
+
+        public RegistroClinico() { }
 
         public RegistroClinico(int idPaciente, DateTime dataRegistro, string descricao, string observacoes, string diagnostico)
         {
             IdPaciente = idPaciente;
             DataRegistro = dataRegistro;
             Descricao = descricao;
-            Observacoes = observacoes;
+           Observacoes = observacoes;
             Diagnostico = diagnostico;
         }
 
