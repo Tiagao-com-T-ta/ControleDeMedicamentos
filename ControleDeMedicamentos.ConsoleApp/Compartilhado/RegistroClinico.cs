@@ -15,14 +15,12 @@ namespace ControleDeMedicamentos.ConsoleApp.Compartilhado
         public string? Observacoes { get; set; }
         public string? Diagnostico { get; set; }
 
-        public RegistroClinico() { }
-
         public RegistroClinico(int idPaciente, DateTime dataRegistro, string descricao, string observacoes, string diagnostico)
         {
             IdPaciente = idPaciente;
             DataRegistro = dataRegistro;
             Descricao = descricao;
-           Observacoes = observacoes;
+            Observacoes = observacoes;
             Diagnostico = diagnostico;
         }
 

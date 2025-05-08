@@ -6,6 +6,7 @@ using ControleDeMedicamentos.ConsoleApp.ModuloFuncionario;
 using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using System.Runtime.CompilerServices;
 using ControleDeMedicamentos.ConsoleApp.ModuloPaciente;
+using ControleDeMedicamentos.ConsoleApp.ModuloRequisicao;
 
 namespace GestaoDeEquipamentos.ConsoleApp.Util;
 
@@ -18,6 +19,7 @@ public class TelaPrincipal
     private TelaPrescricao telaPrescricao;
     private TelaFuncionario telaFuncionario;
     private TelaPaciente telaPaciente;
+    private TelaRequisicaoSaida telaRequisicaoSaida;
 
 
     public TelaPrincipal()
@@ -28,11 +30,13 @@ public class TelaPrincipal
         IRepositorioMedicamento repositorioMedicamento = new RepositorioMedicamentoEmArquivo(contexto);
         IRepositorioPrescricao repositorioPrescricao = new RepositorioPrescricaoEmArquivo(contexto);
         IRepositorioPaciente repositorioPaciente = new RepositorioPacienteEmArquivo(contexto);
+        IRepositorio<RequisicaoSaida> repositorioRequisicaoSaida = new RepositorioRequisicaoSaidaEmMemoria(contexto);
 
         telaFornecedor = new TelaFornecedor(repositorioFornecedor);
         telaMedicamento = new TelaMedicamento(repositorioMedicamento, repositorioFornecedor);
         telaPrescricao = new TelaPrescricao(repositorioPrescricao, repositorioMedicamento);
         telaPaciente = new TelaPaciente(repositorioPaciente, (RepositorioPrescricaoEmArquivo)repositorioPrescricao);
+        telaRequisicaoSaida = new TelaRequisicaoSaida(contexto, repositorioPaciente, "Requisição de Saída", repositorioRequisicaoSaida);
 
         IRepositorioFuncionario repositorioFuncionario = new RepositorioFuncionarioEmArquivo(contexto);
         telaFuncionario = new TelaFuncionario(repositorioFuncionario);
@@ -54,6 +58,7 @@ public class TelaPrincipal
         Console.WriteLine("3 - Prescrições Médicas");
         Console.WriteLine("4 - Controle de Funcionários");
         Console.WriteLine("5 - Controle de Pacientes");
+        Console.WriteLine("6 - Requisições de Saída");
         Console.WriteLine("S - Sair");
 
         Console.WriteLine();
@@ -74,6 +79,8 @@ public class TelaPrincipal
             return telaFuncionario;
         else if (opcaoPrincipal == '5')
             return telaPaciente;
+        else if (opcaoPrincipal == '6')
+            return telaRequisicaoSaida;
 
         return null!;
     }
